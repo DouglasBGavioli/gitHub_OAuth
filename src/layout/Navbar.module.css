@@ -1,0 +1,66 @@
+.navbar {
+      display: flex;
+      justify-content: space-between;
+      background-color: #222;
+      padding: 1em;
+}
+.sobre{
+      list-style: none;
+      text-decoration: none;
+      color: #fff;
+      transition: 0.5s;
+}
+.sobre:hover{
+     color:#ffbb33;
+}
+.login{
+      display: flex;
+      list-style: none;
+      text-decoration: none;
+      color: #fff;
+      margin-left: 1em;
+}
+img {
+ max-width: 100%;
+ max-height: 100%;
+}
+.logo {
+ height: 75px;
+ width: 75px;
+ border-radius: 50em;
+ transition: .5s;
+}
+
+.logo:hover{
+      color: #ffbb33;
+      background-color: #ffbb33;
+}
+.list {
+      display: flex;
+      list-style: none;
+      align-items: center;
+}
+.search{
+      margin-right: .5em;
+      margin-right: 1em;
+}
+.search input{
+      color: #222;
+}
+.lupa{
+      color: #fff;
+      margin-right: 3px;
+}
+.item {
+      margin-right: 2em;
+      color: #fff;
+}
+
+.item a {
+      text-decoration: none;
+      color: #fff;
+}
+
+.item a:hover {
+      color: #ffbb33;
+}

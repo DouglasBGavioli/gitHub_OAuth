@@ -1,0 +1,53 @@
+.login_container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+
+}
+.formCard{
+    width: 300px;
+    height: 300px;
+    border: #7b7b7b solid 1px;
+    padding: 1em 1em 1em 1em;
+    background-color: #fff;
+    margin-right: 1em;
+}
+
+
+.loginButton{
+    background-color: #222;
+      color: #fff;
+      padding: 0.7em 1.2em;
+      text-decoration: none;
+      transition: 0.5s;
+      cursor: pointer;
+      border: none;
+      margin-bottom: .5em;
+}
+.loginButton:hover{
+    color: #ffbb33;
+}
+.githubButton{
+    margin-top: .2em;
+    text-decoration: none;
+    transition: 0.5s;
+    cursor: pointer;
+    border: none;
+    margin-bottom: .5em;
+    background-color:#fff
+}
+.gitImg{
+    background-color:#fff;
+    transition: .5s;
+    border-radius: 50em;
+}
+.gitImg:hover{
+    background-color: #ffbb33;
+}
+p{
+    color: #7b7b7b;
+}
