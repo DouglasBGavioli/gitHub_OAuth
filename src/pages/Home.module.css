@@ -1,6 +1,6 @@
 .home_container {
       width: 100vw;
-      height: 100vh;
+      height: 70vh;
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -45,8 +45,11 @@
       margin: 6px;
 }
 .homeCardDown{
-      display: flex;
+      display: row;
       margin-top: 1em;
+}
+.homeCardDown h4{
+      margin-bottom: 5px;
 }
 .homeCardDown p{
      color: #222;
@@ -62,6 +65,10 @@
 .link a{
       text-decoration: none;
       color: #222;
+      transition: .5s;
+}
+.link a:hover{   
+      color: #ffbb33;
 }
 .data{
        display: flex;
@@ -72,4 +79,6 @@
       height: 25px;
       display: flex;
       margin-right: 5px;
+      border-radius: 8px;
+      border: solid 1px #ffbb33;
 }
