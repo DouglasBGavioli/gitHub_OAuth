@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 
 import Context from "../store/Context";
 import Input from "../form/Input";
+import Loading from "../layout/Loading";
 
 function Home() {
     const [userLogin, setUserLogin] = useContext(Context);
@@ -12,6 +13,7 @@ function Home() {
 
     const [hideRepos, setHideRepos] = useState(false);
     const [hideStarred, setHideStarred] = useState(false);
+    const [removeLoading, setRemoveLoading] = useState(true);
 
     function handleInput(e) {
         setInputValue(e.target.value);
@@ -22,9 +24,10 @@ function Home() {
     }
 
     function clickRepos() {
-        console.log("click repos");
+        setRemoveLoading(false);
+        setHideRepos(true);
         setHideStarred(true);
-        setHideRepos(false);
+
         fetch(`https://api.github.com/users/${inputValue}/repos`, {
             method: "GET",
             headers: {
@@ -37,12 +40,18 @@ function Home() {
                 setRepos(data);
             })
             .catch((err) => console.log(err));
+        setTimeout(() => {
+            setHideStarred(true);
+            setHideRepos(false);
+            setRemoveLoading(true);
+        }, 1000);
     }
 
     function clickStarred(e) {
-        console.log("clicl starred");
-        setHideStarred(false);
+        setRemoveLoading(false);
+        setHideStarred(true);
         setHideRepos(true);
+
         fetch(`https://api.github.com/users/${inputValue}/starred`, {
             method: "GET",
             headers: {
@@ -55,6 +64,11 @@ function Home() {
                 setStarred(data);
             })
             .catch((err) => console.log(err));
+        setTimeout(() => {
+            setHideStarred(false);
+            setHideRepos(true);
+            setRemoveLoading(true);
+        }, 1000);
     }
 
     return (
@@ -84,59 +98,78 @@ function Home() {
                             </button>
                         </form>
                     </section>
+                    <section className={styles.containerCards}>
+                        {!removeLoading && <Loading />}
 
-                    {!hideStarred &&
-                        starred.map((starr) => (
-                            <div className={styles.homeCard} key={starr.id}>
-                                <img
-                                    className={styles.avatar}
-                                    alt="avatar"
-                                    src={starr.owner.avatar_url}
-                                />
-                                <h4>Postado por: {starr.owner.login}</h4>
+                        {starred.length === 0 && !hideStarred && (
+                            <p>Starreds Vazios</p>
+                        )}
+                        {repos.length === 0 && !hideRepos && (
+                            <p>Repertorios Vazios</p>
+                        )}
+                        {!hideStarred &&
+                            starred.map((starr) => (
+                                <div className={styles.homeCard} key={starr.id}>
+                                    <img
+                                        className={styles.avatar}
+                                        alt="avatar"
+                                        src={starr.owner.avatar_url}
+                                    />
+                                    <h4>Postado por: {starr.owner.login}</h4>
 
-                                <div className={styles.homeCardDown}>
-                                    <h4>Repositorio: {starr.name}</h4>
-                                    {starr.description ? (
-                                        <p>Descrição: {starr.description}</p>
-                                    ) : (
-                                        <p>Sem descrição</p>
-                                    )}
+                                    <div className={styles.homeCardDown}>
+                                        <h4>Repositorio: {starr.name}</h4>
+                                        {starr.description ? (
+                                            <p>
+                                                Descrição: {starr.description}
+                                            </p>
+                                        ) : (
+                                            <p>Sem descrição</p>
+                                        )}
+                                    </div>
+                                    <div className={styles.link}>
+                                        <a href={starr.html_url}>
+                                            Link:{starr.html_url}
+                                        </a>
+                                    </div>
+                                    <div className={styles.data}>
+                                        <p>
+                                            {" "}
+                                            {starr.created_at.substring(0, 10)}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className={styles.link}>
-                                    <a href={starr.html_url}>
-                                        Link:{starr.html_url}
-                                    </a>
+                            ))}
+                        {!hideRepos &&
+                            repos.map((rep) => (
+                                <div className={styles.homeCard} key={rep.id}>
+                                    <h4>Repositorio: {rep.name}</h4>
+                                    <div className={styles.homeCardDown}>
+                                        {rep.description ? (
+                                            <p>Descrição: {rep.description}</p>
+                                        ) : (
+                                            <p>Sem descrição</p>
+                                        )}
+                                    </div>
+                                    <div className={styles.link}>
+                                        <a href={rep.html_url}>
+                                            Link:{rep.html_url}
+                                        </a>
+                                    </div>
+                                    <div className={styles.data}>
+                                        <p>
+                                            {" "}
+                                            {rep.created_at.substring(0, 10)}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className={styles.data}>
-                                    <p> {starr.created_at.substring(0, 10)}</p>
-                                </div>
-                            </div>
-                        ))}
-                    {!hideRepos &&
-                        repos.map((rep) => (
-                            <div className={styles.homeCard} key={rep.id}>
-                                <h4>Repositorio: {rep.name}</h4>
-                                <div className={styles.homeCardDown}>
-                                    {rep.description ? (
-                                        <p>Descrição: {rep.description}</p>
-                                    ) : (
-                                        <p>Sem descrição</p>
-                                    )}
-                                </div>
-                                <div className={styles.link}>
-                                    <a href={rep.html_url}>
-                                        Link:{rep.html_url}
-                                    </a>
-                                </div>
-                                <div className={styles.data}>
-                                    <p> {rep.created_at.substring(0, 10)}</p>
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                    </section>
                 </>
             ) : (
-                <span>Você deve logar primeiro</span>
+                <div className={styles.home_container}>
+                    <span>Você deve logar primeiro</span>
+                </div>
             )}
         </>
     );

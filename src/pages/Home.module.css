@@ -7,6 +7,16 @@
       justify-content: center;
       padding: 1em;
 }
+
+.user_container {
+      width: 100vw;
+      height: 70vh;
+      display: flex;
+      flex-direction: row;
+      align-items:baseline;
+      justify-content:flex-start;
+      padding: 1em;
+}
 .form_card{
       width: 300px;
       height: 180px;
@@ -43,6 +53,13 @@
       background-color: #cfcece;
       margin-bottom: 5px;
       margin: 6px;
+}
+.containerCards{
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      margin: 0 auto;
+      flex-wrap: wrap;
 }
 .homeCardDown{
       display: row;
