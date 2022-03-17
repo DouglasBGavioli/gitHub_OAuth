@@ -1,0 +1,30 @@
+.form_card{
+    width: 300px;
+    height: 180px;
+    border: #7b7b7b solid 1px;
+    padding: 1em 1em 1em 1em;
+    background-color: #fff;
+
+}
+.buttons{
+      background-color: #222;
+        color: #fff;
+        padding: 0.7em 1.2em;
+        text-decoration: none;
+        transition: 0.5s;
+        cursor: pointer;
+        border: none;
+        margin-right: .5em;
+        margin-bottom: .5em;
+  }
+  .buttons:disabled{
+      color: #7a7a7a;
+
+  }
+  .buttons:disabled:hover{
+      color: #7a7a7a;
+
+  }
+  .buttons:hover{
+        color: #ffbb33;
+  }

@@ -17,85 +17,12 @@
       justify-content:flex-start;
       padding: 1em;
 }
-.form_card{
-      width: 300px;
-      height: 180px;
-      border: #7b7b7b solid 1px;
-      padding: 1em 1em 1em 1em;
-      background-color: #fff;
 
-  }
-  
-.buttons{
-      background-color: #222;
-        color: #fff;
-        padding: 0.7em 1.2em;
-        text-decoration: none;
-        transition: 0.5s;
-        cursor: pointer;
-        border: none;
-        margin-right: .5em;
-        margin-bottom: .5em;
-  }
-  .buttons:hover{
-        color: #ffbb33;
-  }
-
-
-/* Card dos posts */
-.homeCard{
-      min-width: 300px;
-      padding: .5em;
-      border: 1px solid #7a7a7a;
-      border-radius: 5px;
-      width: 24%;
-      margin: 0.25%;
-      background-color: #cfcece;
-      margin-bottom: 5px;
-      margin: 6px;
-}
+/* Container dos cards*/
 .containerCards{
       width: 100%;
       display: flex;
-      justify-content: space-evenly;
+      justify-content:space-evenly;
       margin: 0 auto;
       flex-wrap: wrap;
-}
-.homeCardDown{
-      display: row;
-      margin-top: 1em;
-}
-.homeCardDown h4{
-      margin-bottom: 5px;
-}
-.homeCardDown p{
-     color: #222;
-}
-.link {
-      margin-top: 1em;
-      text-overflow: ellipsis;
-      text-decoration: none;
-      white-space: nowrap;
-      width: 100%;
-      overflow: hidden;      
-}
-.link a{
-      text-decoration: none;
-      color: #222;
-      transition: .5s;
-}
-.link a:hover{   
-      color: #ffbb33;
-}
-.data{
-       display: flex;
-      margin-top: 1em;
-}
-.avatar{
-      float: left;
-      height: 25px;
-      display: flex;
-      margin-right: 5px;
-      border-radius: 8px;
-      border: solid 1px #ffbb33;
 }
