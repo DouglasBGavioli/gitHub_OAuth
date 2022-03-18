@@ -1,5 +1,5 @@
 import styles from "./Home.module.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Context from "../store/Context";
 import Input from "../form/Input";
@@ -20,6 +20,29 @@ function Home() {
     const [removeLoading, setRemoveLoading] = useState(true);
     const [button, setButton] = useState(true);
 
+    function handleAPI(local, setter) {
+        fetch(`https://api.github.com/users/${inputValue}/${local}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((resp) => resp.json())
+            .then((data) => {
+                if (data.message === "Not Found") {
+                    console.log("not found");
+                    setter([]);
+                } else {
+                    setter(data);
+                    localStorage.setItem(
+                        `${local}${inputValue}`,
+                        JSON.stringify(data)
+                    );
+                }
+            })
+            .catch((err) => console.log(err));
+    }
+
     function handleInput(e) {
         setInputValue(e.target.value);
         if (inputValue !== " ") {
@@ -38,36 +61,22 @@ function Home() {
         setRemoveLoading(false);
         setHideRepos(true);
         setHideStarred(true);
+        handleAPI("repos", setRepos);
 
         if (localStorage.getItem(`repos${inputValue}`)) {
             console.log("achou");
             let repoString = localStorage.getItem(`repos${inputValue}`);
             let repoObj = JSON.parse(repoString);
             // !!parei aqui falta verificar se os repositorios mudaram ou nao
-            setRepos(repoObj);
+            //se repoObj for diferente do obj retornado na api entao atualizar o local
+            if (repoObj.length !== repos.length) {
+                localStorage.setItem(
+                    `repos${inputValue}`,
+                    JSON.stringify(repos)
+                );
+            }
         } else {
-            fetch(`https://api.github.com/users/${inputValue}/repos`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-                .then((resp) => resp.json())
-                .then((data) => {
-                    console.log(data);
-
-                    if (data.message === "Not Found") {
-                        console.log("not found");
-                        setRepos([]);
-                    } else {
-                        setRepos(data);
-                        localStorage.setItem(
-                            `repos${inputValue}`,
-                            JSON.stringify(data)
-                        );
-                    }
-                })
-                .catch((err) => console.log(err));
+            handleAPI("repos", setRepos);
         }
 
         setTimeout(() => {
@@ -81,34 +90,22 @@ function Home() {
         setHideStarred(true);
         setHideRepos(true);
 
+        handleAPI("starred", setStarred);
+
         if (localStorage.getItem(`starred${inputValue}`)) {
             console.log("achou");
             let starredString = localStorage.getItem(`starred${inputValue}`);
             let starredObj = JSON.parse(starredString);
-            setStarred(starredObj);
+            // !!parei aqui falta verificar se os repositorios mudaram ou nao
+            //se repoObj for diferente do obj retornado na api entao atualizar o local
+            if (starredObj.length !== starred.length) {
+                localStorage.setItem(
+                    `starred${inputValue}`,
+                    JSON.stringify(starred)
+                );
+            }
         } else {
-            fetch(`https://api.github.com/users/${inputValue}/starred`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-                .then((resp) => resp.json())
-                .then((data) => {
-                    console.log(data);
-
-                    if (data.message === "Not Found") {
-                        console.log("not found");
-                        setStarred([]);
-                    } else {
-                        setStarred(data);
-                        localStorage.setItem(
-                            `starred${inputValue}`,
-                            JSON.stringify(data)
-                        );
-                    }
-                })
-                .catch((err) => console.log(err));
+            handleAPI("starred", setStarred);
         }
         setTimeout(() => {
             setHideStarred(false);
